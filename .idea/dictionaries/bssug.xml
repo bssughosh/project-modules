@@ -2,12 +2,15 @@
   <dictionary name="bssug">
     <words>
       <w>cloudcover</w>
+      <w>datasets</w>
+      <w>kmph</w>
       <w>maxtemp</w>
       <w>mintemp</w>
       <w>mumbai</w>
       <w>precip</w>
       <w>sudhanvan</w>
       <w>sughosh</w>
+      <w>windspeed</w>
     </words>
   </dictionary>
 </component>
