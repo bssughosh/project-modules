@@ -11,7 +11,7 @@ from sklearn.svm import SVR
 
 pd.options.mode.chained_assignment = None
 
-df = pd.read_csv('../../../datasets/mumbai.csv')
+df = pd.read_csv('../../datasets/manali.csv')
 
 df['date_time'] = pd.to_datetime(df['date_time'])
 
