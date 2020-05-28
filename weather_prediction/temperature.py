@@ -8,9 +8,11 @@ Author: Sughosh Sudhanvan
 import pandas as pd
 import numpy as np
 from sklearn.svm import SVR
+
 from settings import *
 
 pd.options.mode.chained_assignment = None
+
 file = os.path.join(DATA_URL, 'manali.csv')
 df = pd.read_csv(file)
 
