@@ -9,9 +9,12 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
+from settings import *
+
 pd.options.mode.chained_assignment = None
 
-df = pd.read_csv('../../../datasets/mumbai.csv')
+file = os.path.join(DATA_URL, 'manali.csv')
+df = pd.read_csv(file)
 
 df['date_time'] = pd.to_datetime(df['date_time'])
 
@@ -86,4 +89,3 @@ for test_loc, cols in enumerate(cols_s):
 
     print('a =', average_error)
     print('m =', max_difference)
-

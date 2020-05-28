@@ -9,7 +9,10 @@ import pandas as pd
 import numpy as np
 from sklearn.svm import SVR
 
-df = pd.read_csv('../../../datasets/mumbai.csv')
+from settings import *
+
+file = os.path.join(DATA_URL, 'manali.csv')
+df = pd.read_csv(file)
 
 df['date_time'] = pd.to_datetime(df['date_time'])
 
