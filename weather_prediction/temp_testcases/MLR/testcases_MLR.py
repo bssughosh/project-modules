@@ -87,5 +87,5 @@ for test_loc, cols in enumerate(cols_s):
     max_difference = lr_prediction['diff'].max()
     average_error = average_error / forecast_out
 
-    print('a =', average_error)
-    print('m =', max_difference)
+    print('Average Error =', average_error)
+    print('Max Difference =', max_difference)
