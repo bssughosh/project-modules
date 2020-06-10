@@ -22,11 +22,16 @@ api_key = os.getenv("SECRET_KEY")
 
 def get_data(place):
     location_list = [place]
-    hist_weather_data = retrieve_hist_data(api_key,
-                                           location_list,
-                                           start_date,
-                                           end_date,
-                                           frequency,
-                                           location_label=False,
-                                           export_csv=True,
-                                           store_df=True)
+    files = os.listdir(DATA_URL)
+    file = place + '.csv'
+    if file in files:
+        pass
+    else:
+        hist_weather_data = retrieve_hist_data(api_key,
+                                               location_list,
+                                               start_date,
+                                               end_date,
+                                               frequency,
+                                               location_label=False,
+                                               export_csv=True,
+                                               store_df=True)

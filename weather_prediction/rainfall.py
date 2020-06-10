@@ -38,7 +38,7 @@ df['District'] = df['District'].apply(lambda district: name_preprocessing(distri
 def rain_call_g100(state, district):
     selected_state = state
     selected_district = district
-    vals = []
+    values = []
     for month_loc, selected_month in enumerate(months):
         df1 = df[df['State'] == selected_state]
         df2 = df1[df1['District'] == selected_district]
@@ -50,11 +50,15 @@ def rain_call_g100(state, district):
             x.append(j)
 
         x1 = pd.DataFrame(x, columns=['Year', selected_month])
+        x1 = x1.apply(pd.to_numeric, errors='coerce')
+        x1 = x1.dropna()
+        x1.reset_index(drop=True, inplace=True)
+
         if month_loc <= 6:
             forecast_out = 2020 - int(x1.iloc[-1, 0])
         else:
             forecast_out = 2021 - int(x1.iloc[-1, 0])
-        x1['prediction'] = x1[['Jul']].shift(-forecast_out)
+        x1['prediction'] = x1[[selected_month]].shift(-forecast_out)
 
         X = np.array(x1.drop(['Year', 'prediction'], 1))
         X = X[:-forecast_out]
@@ -67,8 +71,36 @@ def rain_call_g100(state, district):
 
         x_forecast = np.array(x1.drop(['Year', 'prediction'], 1))[-forecast_out:]
         svm_prediction = svm.predict(x_forecast)
-        vals.append(svm_prediction[-1])
+        values.append(svm_prediction[-1])
 
-    vals = pd.DataFrame(vals, columns=['Predicted'])
+    values = pd.DataFrame(values, columns=['Predicted'])
     new_file = os.path.join(DATA_URL, 'rain_pred', '{},{}.csv'.format(selected_district, selected_state))
-    vals.to_csv(new_file, index=False, header=True)
+    values.to_csv(new_file, index=False, header=True)
+
+
+def rain_call_g5(state, district):
+    selected_state = state
+    selected_district = district
+    values = []
+    for month_loc, selected_month in enumerate(months):
+        df1 = df[df['State'] == selected_state]
+        df2 = df1[df1['District'] == selected_district]
+        df3 = df2[['Year', selected_month]]
+        df3 = pd.DataFrame(df3, columns=['Year', selected_month])
+
+        x = []
+        for i, j in df3.iterrows():
+            x.append(j)
+
+        x1 = pd.DataFrame(x, columns=['Year', selected_month])
+        x1 = x1.apply(pd.to_numeric, errors='coerce')
+        x1 = x1.dropna()
+        x1.reset_index(drop=True, inplace=True)
+
+        col_sum = x1[selected_month].sum()
+        col_avg = col_sum / x1.shape[0]
+        values.append(col_avg)
+
+    values = pd.DataFrame(values, columns=['Predicted'])
+    new_file = os.path.join(DATA_URL, 'rain_pred', '{},{}.csv'.format(selected_district, selected_state))
+    values.to_csv(new_file, index=False, header=True)

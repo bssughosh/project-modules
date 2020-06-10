@@ -5,7 +5,7 @@ from settings import *
 from weather_prediction.fetch_weather_data import get_data
 from weather_prediction.temperature import temp_call
 from weather_prediction.humidity import humidity_call
-from weather_prediction.rainfall import rain_call_g100
+from weather_prediction.rainfall import rain_call_g100, rain_call_g5
 
 pd.options.mode.chained_assignment = None
 
@@ -71,6 +71,28 @@ def rainfall_prediction(district, state, s_month, e_month):
                 available_rainfall.append(district)
                 rainfall_prediction(district, state, s_month, e_month)
         elif j[3:].min() > 5:
-            pass
+            if district in available_rainfall:
+                file = os.path.join(DATA_URL, '{},{}.csv'.format(district, state))
+                t = pd.read_csv(file)
+                s_month = s_month - 5
+                e_month = e_month - 5
+
+                req = np.array(t.iloc[s_month:e_month + 1, 0])
+                print(req)
+            else:
+                rain_call_g5(state, district)
+                available_rainfall.append(district)
+                rainfall_prediction(district, state, s_month, e_month)
         else:
-            pass
+            if district in available_rainfall:
+                file = os.path.join(DATA_URL, '{},{}.csv'.format(district, state))
+                t = pd.read_csv(file)
+                s_month = s_month - 5
+                e_month = e_month - 5
+
+                req = np.array(t.iloc[s_month:e_month + 1, 0])
+                print(req)
+            else:
+                rain_call_g5(state, district)
+                available_rainfall.append(district)
+                rainfall_prediction(district, state, s_month, e_month)
