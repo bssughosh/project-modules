@@ -107,7 +107,7 @@ def humidity_call(place, state):
         for i, j in df2.iterrows():
             x.append(j)
 
-        x1 = pd.DataFrame(x, columns=cols2)
+        x1 = pd.DataFrame(x, columns=cols2[test_loc])
         forecast_out = 12
         x1['prediction'] = x1[['humidity']].shift(-forecast_out)
 

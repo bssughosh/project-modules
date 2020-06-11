@@ -59,7 +59,7 @@ def rainfall_prediction(district, state, s_month, e_month):
     for i, j in df1.iterrows():
         if j[3:].min() >= 100:
             if district in available_rainfall:
-                file = os.path.join(DATA_URL, '{},{}.csv'.format(district, state))
+                file = os.path.join(DATA_URL, 'rain_pred', '{},{}.csv'.format(district, state))
                 t = pd.read_csv(file)
                 s_month = s_month - 5
                 e_month = e_month - 5
@@ -72,7 +72,7 @@ def rainfall_prediction(district, state, s_month, e_month):
                 rainfall_prediction(district, state, s_month, e_month)
         elif j[3:].min() > 5:
             if district in available_rainfall:
-                file = os.path.join(DATA_URL, '{},{}.csv'.format(district, state))
+                file = os.path.join(DATA_URL, 'rain_pred', '{},{}.csv'.format(district, state))
                 t = pd.read_csv(file)
                 s_month = s_month - 5
                 e_month = e_month - 5
@@ -85,7 +85,7 @@ def rainfall_prediction(district, state, s_month, e_month):
                 rainfall_prediction(district, state, s_month, e_month)
         else:
             if district in available_rainfall:
-                file = os.path.join(DATA_URL, '{},{}.csv'.format(district, state))
+                file = os.path.join(DATA_URL, 'rain_pred', '{},{}.csv'.format(district, state))
                 t = pd.read_csv(file)
                 s_month = s_month - 5
                 e_month = e_month - 5
@@ -96,3 +96,11 @@ def rainfall_prediction(district, state, s_month, e_month):
                 rain_call_g5(state, district)
                 available_rainfall.append(district)
                 rainfall_prediction(district, state, s_month, e_month)
+
+
+place = "dhule"
+district = "dhule"
+state = "maharashtra"
+temperature_prediction(place, state, 6, 7)
+humidity_prediction(place, state, 6, 7)
+rainfall_prediction(district, state, 6, 7)
