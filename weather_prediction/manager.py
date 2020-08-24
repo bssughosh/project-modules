@@ -101,6 +101,6 @@ def rainfall_prediction(district, state, s_month, e_month):
 place = "dhule"
 district = "dhule"
 state = "maharashtra"
-temperature_prediction(place, state, 6, 7)
-humidity_prediction(place, state, 6, 7)
+# temperature_prediction(place, state, 6, 7)
+# humidity_prediction(place, state, 6, 7)
 rainfall_prediction(district, state, 6, 7)
